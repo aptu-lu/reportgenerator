@@ -16,11 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsReader {
-    String filePath = "settings.xml";
     private List<ColumnSettings> listColumnSettings = new ArrayList<>();
     private PageSettings pageSettings = new PageSettings();
 
-    public void parse() {
+    public void parse(String filePath) {
         File file = new File(filePath);
         try {
             Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);

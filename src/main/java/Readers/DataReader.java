@@ -13,9 +13,10 @@ import java.util.Scanner;
 public class DataReader {
     List<DataRow> dataRows = new ArrayList<>();
 
-    public List<DataRow> parse() {
+
+    public List<DataRow> parse(String filepath) {
         try {
-            Scanner scanner = new Scanner(new File("source-data.tsv"), StandardCharsets.UTF_16);
+            Scanner scanner = new Scanner(new File(filepath), StandardCharsets.UTF_16);
             while (scanner.hasNext()) {
                 DataRow dataRow = new DataRow();
                 String line = scanner.nextLine();

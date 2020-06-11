@@ -2,7 +2,7 @@
 
 <settings>
 	<page>
-		<width>83</width>
+		<width>32</width>
 		<height>12</height>
 	</page>
 	<columns>
@@ -16,19 +16,7 @@
 		</column>
 		<column>
 			<title>ФИО</title>
-			<width>14</width>
-		</column>
-		<column>
-			<title>rabotaaaaaaaaa</title>
-			<width>8</width>
-		</column>
-		<column>
-			<title>index</title>
-			<width>12</width>
-		</column>
-		<column>
-			<title>dom</title>
-			<width>18</width>
+			<width>7</width>
 		</column>
 	</columns>
 </settings>

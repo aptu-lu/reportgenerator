@@ -2,6 +2,7 @@ package Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DataRow {
     private List<String> dataList;
@@ -26,4 +27,16 @@ public class DataRow {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DataRow)) return false;
+        DataRow dataRow = (DataRow) o;
+        return getDataList().equals(dataRow.getDataList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDataList());
+    }
 }
