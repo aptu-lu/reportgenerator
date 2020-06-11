@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DataReader {
-    List<DataRow> dataRows = new ArrayList<>();
+    private List<DataRow> dataRows = new ArrayList<>();
 
 
     public List<DataRow> parse(String filepath) {
