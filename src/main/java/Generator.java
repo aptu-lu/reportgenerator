@@ -23,5 +23,6 @@ public class Generator {
         String result = builder.build();
         TxtWriter txtWriter = new TxtWriter(arguments.get(2));
         txtWriter.write(result);
+        System.out.println(result);
     }
 }

@@ -19,7 +19,7 @@ public class ReportBuilder {
     private int pageHeight;
     private int pageCount;
     private int headerHeight;
-    StringBuilder sb;
+    private StringBuilder sb = new StringBuilder();
 
     public ReportBuilder(List<ColumnSettings> list, PageSettings pageSettings, List<DataRow> dataRows) {
         columnSettingsList = list;
@@ -29,11 +29,11 @@ public class ReportBuilder {
     }
 
     public String build() {
-        sb = new StringBuilder();
-        createHeader();
+        headerHeight = createHeader();
         createDelimiter();
-        sb.append(delimiter);
-        pageCount--;
+        sb.setLength(0);
+        sb.append(this.header).append(delimiter);
+        pageCount= pageHeight - headerHeight - 1;
         for (int i = 0; i < dataRows.size(); i++) {
             createRow(dataRows.get(i).getDataList());
             if (pageCount > 0) {
