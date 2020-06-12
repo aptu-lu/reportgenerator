@@ -12,16 +12,15 @@ import java.util.List;
 
 public class Generator {
     public static void main(String[] args) {
-        List<String> arguments = new ArrayList<>(Arrays.asList(args));
         SettingsReader settingsReader = new SettingsReader();
-        settingsReader.parse(arguments.get(0));
+        settingsReader.parse(args[0]);
         List<ColumnSettings> columnsSettings = settingsReader.getListColumnSettings();
         PageSettings pageSettings = settingsReader.getPageSettings();
         DataReader dataReader = new DataReader();
-        List<DataRow> dataRows = dataReader.parse(arguments.get(1));
-        ReportBuilder builder = new ReportBuilder(columnsSettings,pageSettings,dataRows);
+        List<DataRow> dataRows = dataReader.parse(args[1]);
+        ReportBuilder builder = new ReportBuilder(columnsSettings, pageSettings, dataRows);
         String result = builder.build();
-        TxtWriter txtWriter = new TxtWriter(arguments.get(2));
+        TxtWriter txtWriter = new TxtWriter(args[2]);
         txtWriter.write(result);
         System.out.println(result);
     }

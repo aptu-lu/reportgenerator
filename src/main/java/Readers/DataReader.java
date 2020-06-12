@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class DataReader {
     private List<DataRow> dataRows = new ArrayList<>();
 
-
     public List<DataRow> parse(String filepath) {
         try {
             Scanner scanner = new Scanner(new File(filepath), StandardCharsets.UTF_16);

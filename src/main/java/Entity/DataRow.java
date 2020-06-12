@@ -19,7 +19,6 @@ public class DataRow {
         this.dataList = dataList;
     }
 
-
     @Override
     public String toString() {
         return "DataRow{" +

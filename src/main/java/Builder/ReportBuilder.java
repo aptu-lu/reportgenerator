@@ -17,7 +17,7 @@ public class ReportBuilder {
     private String pageDelimiter = "~" + System.lineSeparator();
     private int pageWidth;
     private int pageHeight;
-    private int pageCount;
+    private int remainingPageHeight;
     private int headerHeight;
     private StringBuilder sb = new StringBuilder();
 
@@ -29,23 +29,22 @@ public class ReportBuilder {
     }
 
     public String build() {
-        headerHeight = createHeader();
+        createHeader();
         createDelimiter();
-        sb.setLength(0);
-        sb.append(this.header).append(delimiter);
-        pageCount= pageHeight - headerHeight - 1;
+        sb.append(delimiter);
+        remainingPageHeight = pageHeight - headerHeight - 1;
         for (int i = 0; i < dataRows.size(); i++) {
             createRow(dataRows.get(i).getDataList());
-            if (pageCount > 0) {
+            if (remainingPageHeight > 0) {
                 sb.append(delimiter);
-                pageCount--;
+                remainingPageHeight--;
             }
         }
         return sb.toString();
     }
 
-    private int createHeader() {
-        pageCount = pageHeight;
+    private void createHeader() {
+        remainingPageHeight = pageHeight;
         List<String> titleList = new ArrayList<>();
         for (ColumnSettings cs :
                 columnSettingsList) {
@@ -53,17 +52,16 @@ public class ReportBuilder {
         }
         headerHeight = createRow(titleList);
         header = sb.toString();
-        return headerHeight;
     }
 
     private int createRow(List<String> dataCell) {
         int heightRow = 0;
-        int countIsOk = columnSettingsList.size();
-        while (countIsOk > 0) {
+        int cellsNotCompleted = columnSettingsList.size();
+        while (cellsNotCompleted > 0) {
             heightRow++;
-            if (pageCount == 0) {
+            if (remainingPageHeight == 0) {
                 sb.append(pageDelimiter).append(header).append(delimiter);
-                pageCount = pageHeight-headerHeight -1;
+                remainingPageHeight = pageHeight - headerHeight - 1;
             }
             for (int j = 0; j < columnSettingsList.size(); j++) {
                 int remainingSpace = columnSettingsList.get(j).getWidth();
@@ -85,7 +83,7 @@ public class ReportBuilder {
                         sb.append(" ");
                     }
                     dataCell.set(j, "");
-                    countIsOk--;
+                    cellsNotCompleted--;
                 } else {
                     while (remainingSpace != 0) {
                         Pattern pattern = Pattern.compile("[^0-9а-яА-Яa-zA-Z]");
@@ -94,7 +92,6 @@ public class ReportBuilder {
                         }
                         Matcher matcher = pattern.matcher(dataCell.get(j));
                         if (matcher.find()) {
-
                             String startSubstring = dataCell.get(j).substring(0, matcher.end());
                             String endSubstring = dataCell.get(j).substring(matcher.end());
                             if (startSubstring.length() <= remainingSpace) {
@@ -103,7 +100,6 @@ public class ReportBuilder {
                                 dataCell.set(j, endSubstring);
                                 continue;
                             }
-
                             if (startSubstring.endsWith(" ") && startSubstring.length() - remainingSpace == 1) {
                                 startSubstring = startSubstring.substring(0, startSubstring.length() - 1);
                                 if (startSubstring.length() <= remainingSpace) {
@@ -140,11 +136,10 @@ public class ReportBuilder {
                 sb.append(" ");
             }
             sb.append("|").append(System.lineSeparator());
-            pageCount--;
+            remainingPageHeight--;
         }
         return heightRow;
     }
-
 
     private void createDelimiter() {
         StringBuilder stringBuilder = new StringBuilder();
