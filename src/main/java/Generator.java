@@ -6,8 +6,6 @@ import Readers.DataReader;
 import Readers.SettingsReader;
 import Writers.TxtWriter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Generator {
