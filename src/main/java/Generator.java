@@ -12,8 +12,7 @@ import java.util.List;
 
 public class Generator {
     public static void main(String[] args) {
-        List<String> arguments = new ArrayList<>();
-        arguments.addAll(Arrays.asList(args));
+        List<String> arguments = new ArrayList<>(Arrays.asList(args));
         SettingsReader settingsReader = new SettingsReader();
         settingsReader.parse(arguments.get(0));
         List<ColumnSettings> columnsSettings = settingsReader.getListColumnSettings();
